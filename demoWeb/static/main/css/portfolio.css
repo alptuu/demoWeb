@@ -519,6 +519,7 @@ body.nav-open .nav-toggle span::after { transform: translateY(-8px) rotate(-45de
 
 .project-card__link {
     position: relative;
+    z-index: 2;
     margin-top: 16px;
     font-size: 0.75rem;
     letter-spacing: 0.18em;
@@ -682,6 +683,7 @@ body.nav-open .nav-toggle span::after { transform: translateY(-8px) rotate(-45de
 }
 
 .blog-card {
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--line);
     transition: border-color 0.35s var(--ease), transform 0.35s var(--ease);
@@ -722,6 +724,17 @@ body.nav-open .nav-toggle span::after { transform: translateY(-8px) rotate(-45de
 .blog-card__title {
     font-size: 1.2rem;
     margin: 10px 0 8px;
+}
+
+.stretched-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.stretched-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
 }
 
 /* Contact ---------------------------------------------------------------- */

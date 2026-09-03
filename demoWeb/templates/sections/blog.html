@@ -5,6 +5,7 @@
     <div class="blog-grid">
         {% for blog in blogs %}
             <article class="blog-card reveal" data-delay="{{ forloop.counter }}">
+                <a class="stretched-link" href="{% url 'blog_detail' blog.pk %}" aria-label="{{ blog.title }}"></a>
                 <div class="blog-card__body">
                     {% if blog.date %}<p class="blog-card__date">{{ blog.date }}</p>{% endif %}
                     <h3 class="blog-card__title">{{ blog.title }}</h3>
@@ -12,17 +13,6 @@
                 </div>
             </article>
         {% endfor %}
-        {% for post in posts %}
-            <article class="blog-card reveal" data-delay="{{ forloop.counter }}">
-                <div class="blog-card__thumb">
-                    <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
-                </div>
-                <div class="blog-card__body">
-                    <p class="blog-card__date">{{ post.date }}</p>
-                    <h3 class="blog-card__title">{{ post.title }}</h3>
-                    <p>{{ post.excerpt }}</p>
-                </div>
-            </article>
-        {% endfor %}
+
     </div>
 </section>

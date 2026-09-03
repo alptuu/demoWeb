@@ -14,6 +14,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name="profile",
     )
+    
     role = models.CharField(
         max_length=10,
         choices=ROLE_CHOICES,
@@ -149,5 +150,17 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     date = models.DateField(null=True,blank=True)
+
+class Contact(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="contacts",
+    )
+    name = models.CharField(max_length=100)
+    url = models.URLField(unique=True)
+
+    def __str__(self):
+        return self.name
 
 

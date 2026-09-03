@@ -6,6 +6,7 @@
         <div class="project-grid">
             {% for project in projects %}
                 <article class="project-card reveal" data-delay="{{ forloop.counter0|add:1 }}">
+                    <a class="stretched-link" href="{% url 'project_detail' project.pk %}" aria-label="{{ project.title }}"></a>
                     <span class="project-card__index">{{ forloop.counter|stringformat:"02d" }}</span>
                     <h3 class="project-card__title">{{ project.title }}</h3>
                     <p class="project-card__desc">{{ project.description|truncatewords:30 }}</p>

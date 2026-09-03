@@ -54,7 +54,8 @@ def main_page(request):
         projects = list(owner.user.projects.all())
         courses = list(owner.user.courses.all())
         skills = list(owner.user.skills.all())
-        blogs = list(owner.user.blogs.order_by('-date'))
+        blogs = list(owner.user.blogs.order_by('-date')[:3])
+        contacts = list(owner.user.contacts.all())
 
         context.update({
             'experiences': experiences,
@@ -64,6 +65,7 @@ def main_page(request):
             'skills': skills,
             'hobbies': owner.user.hobbies.all(),
             'blogs': blogs,
+            'contacts': contacts,
             'stats': {
                 'experience_count': len(experiences),
                 'project_count': len(projects),
@@ -89,7 +91,6 @@ urlpatterns = [
     path('projects/', section_redirect('projects'), name='projects'),
     path('education/', section_redirect('education'), name='education'),
     path('testimonials/', section_redirect('testimonials'), name='testimonials'),
-    path('partners/', section_redirect('partners'), name='partners'),
     path('blog/', section_redirect('blog'), name='blog'),
     path('contact/', section_redirect('contact'), name='contact'),
     path('', include('user.urls')),

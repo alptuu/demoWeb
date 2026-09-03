@@ -9,13 +9,11 @@
         <li><a href="{% url 'home' %}#projects" data-nav-link>Projeler</a></li>
         <li><a href="{% url 'home' %}#education" data-nav-link>Eğitim</a></li>
         <li><a href="{% url 'home' %}#testimonials" data-nav-link>Referanslar</a></li>
-        <li><a href="{% url 'home' %}#partners" data-nav-link>Partnerler</a></li>
         <li><a href="{% url 'home' %}#blog" data-nav-link>Blog</a></li>
         <li><a href="{% url 'home' %}#contact" data-nav-link>İletişim</a></li>
     </ul>
 
     <div class="site-nav__meta">
-        {% if owner.phone_number %}<a href="tel:{{ owner.phone_number }}">{{ owner.phone_number }}</a>{% endif %}
         {% if user.is_authenticated %}<a href="{% url 'owner_edit' %}">Panel</a>{% endif %}
     </div>
 

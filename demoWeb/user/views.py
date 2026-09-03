@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import (
     BlogForm,
+    ContactForm,
     CourseForm,
     EducationForm,
     ExperienceForm,
@@ -17,7 +18,7 @@ from .forms import (
     ProjectForm,
     SkillForm,
 )
-from .models import Blog, Course, Education, Experience, Profile, Project, Skill
+from .models import Blog, Contact, Course, Education, Experience, Profile, Project, Skill
 
 
 def owner_login(request):
@@ -110,6 +111,7 @@ ITEM_MODELS = {
     'course': (Course, CourseForm, 'Kurs'),
     'skill': (Skill, SkillForm, 'Yetenek'),
     'blog': (Blog, BlogForm, 'Blog Yazısı'),
+    'contact': (Contact, ContactForm, 'İletişim'),
 }
 
 
@@ -177,6 +179,20 @@ def item_delete(request, model_name, pk):
         return redirect('item_list', model_name=model_name)
 
     return render(request, 'owner/item_confirm_delete.html', {'item': item, 'title': title})
+
+
+def project_detail(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    owner = getattr(project.user, 'profile', None)
+
+    return render(request, 'pages/project_detail.html', {'project': project, 'owner': owner})
+
+
+def blog_detail(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    owner = getattr(blog.user, 'profile', None)
+
+    return render(request, 'pages/blog_detail.html', {'blog': blog, 'owner': owner})
 
 
 

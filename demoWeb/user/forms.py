@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Course, Education, Experience, Project, Skill, Blog
+from .models import Course, Education, Experience, Project, Skill, Blog, Contact
 
 
 class OwnerLoginForm(AuthenticationForm):
@@ -168,6 +168,16 @@ class BlogForm(forms.ModelForm):
             "title":"Başlık",
             "description":"Açıklama",
             "date":"Tarih",
+        }
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ["name", "url"]
+        labels = {
+            "name": "Ad",
+            "url": "Bağlantı",
         }
 
 

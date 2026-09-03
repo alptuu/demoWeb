@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <p class="section__label reveal">Blog</p>
+    <h1 class="section__title reveal" data-delay="1">{{ blog.title }}</h1>
+
+    {% if blog.date %}<p class="blog-card__date reveal" data-delay="2">{{ blog.date }}</p>{% endif %}
+
+    <p class="about__bio reveal" data-delay="3">{{ blog.description|linebreaksbr }}</p>
+
+    <p class="auth__footer"><a href="{% url 'home' %}#blog">Yazılara Dön</a></p>
+</section>
+{% endblock %}
