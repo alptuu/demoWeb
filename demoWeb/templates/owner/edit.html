@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Giriş Yap{% endblock %}
+{% block title %}Profili Düzenle{% endblock %}
 
 {% block content %}
 <section class="auth">
     <div class="auth__card">
-        <h1>Giriş <span class="accent">Yap</span></h1>
+        <h1>Profili <span class="accent">Düzenle</span></h1>
 
         <form method="post">
             {% csrf_token %}
@@ -19,9 +19,10 @@
                 </div>
             {% endfor %}
 
-            <button type="submit" class="btn">Giriş Yap</button>
+            <button type="submit" class="btn">Kaydet</button>
         </form>
+
+        <p class="auth__footer"><a href="{% url 'owner_logout' %}">Çıkış Yap</a></p>
     </div>
 </section>
 {% endblock %}
-

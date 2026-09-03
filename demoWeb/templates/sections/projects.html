@@ -1,0 +1,21 @@
+<section id="projects" class="section" data-section>
+    <p class="section__label reveal">Projeler</p>
+    <h2 class="section__title reveal" data-delay="1">Seçilmiş <span class="accent">çalışmalar</span></h2>
+
+    {% if projects %}
+        <div class="project-grid">
+            {% for project in projects %}
+                <article class="project-card reveal" data-delay="{{ forloop.counter0|add:1 }}">
+                    <span class="project-card__index">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <h3 class="project-card__title">{{ project.title }}</h3>
+                    <p class="project-card__desc">{{ project.description|truncatewords:30 }}</p>
+                    {% if project.url %}
+                        <a class="project-card__link" href="{{ project.url }}" target="_blank" rel="noopener">Projeyi gör</a>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty-state reveal" data-delay="2">Henüz proje eklenmemiş.</p>
+    {% endif %}
+</section>

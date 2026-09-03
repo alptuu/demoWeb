@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<section class="auth">
+    <div class="auth__card">
+        <h1>{{ title }} <span class="accent">Listesi</span></h1>
+
+        <ul class="item-list">
+            {% for item in items %}
+                <li class="item-list__row">
+                    <span>{{ item }}</span>
+                    <a href="{% url 'item_update' model_name pk=item.pk %}">Düzenle</a>
+                    <a href="{% url 'item_delete' model_name pk=item.pk %}">Sil</a>
+                </li>
+            {% empty %}
+                <li>Henüz kayıt eklenmemiş.</li>
+            {% endfor %}
+        </ul>
+
+        <a class="btn" href="{% url 'item_create' model_name %}">Yeni {{ title }} Ekle</a>
+        <p class="auth__footer"><a href="{% url 'owner_edit' %}">Profile Dön</a></p>
+    </div>
+</section>
+{% endblock %}

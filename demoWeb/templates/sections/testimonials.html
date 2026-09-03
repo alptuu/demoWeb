@@ -1,0 +1,23 @@
+<section id="testimonials" class="section" data-section>
+    <p class="section__label reveal">Referanslar</p>
+    <h2 class="section__title reveal" data-delay="1">Birlikte <span class="accent">çalıştıklarım</span></h2>
+
+    <div class="carousel reveal" data-delay="2" data-carousel>
+        <div class="carousel__track">
+            {% for item in testimonials %}
+                <blockquote class="carousel__slide{% if forloop.first %} is-active{% endif %}" data-carousel-slide>
+                    <p class="carousel__quote">“{{ item.quote }}”</p>
+                    <footer class="carousel__author"><strong>{{ item.name }}</strong> · {{ item.role }}</footer>
+                </blockquote>
+            {% endfor %}
+        </div>
+
+        <div class="carousel__controls" role="tablist" aria-label="Referans seçimi">
+            {% for item in testimonials %}
+                <button type="button" class="carousel__dot{% if forloop.first %} is-active{% endif %}"
+                        data-carousel-dot role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                        aria-label="Referans {{ forloop.counter }}"></button>
+            {% endfor %}
+        </div>
+    </div>
+</section>

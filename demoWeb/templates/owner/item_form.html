@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Giriş Yap{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 <section class="auth">
     <div class="auth__card">
-        <h1>Giriş <span class="accent">Yap</span></h1>
+        <h1>{{ title }} <span class="accent">Kaydet</span></h1>
 
         <form method="post">
             {% csrf_token %}
@@ -19,9 +19,8 @@
                 </div>
             {% endfor %}
 
-            <button type="submit" class="btn">Giriş Yap</button>
+            <button type="submit" class="btn">Kaydet</button>
         </form>
     </div>
 </section>
 {% endblock %}
-

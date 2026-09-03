@@ -1,0 +1,46 @@
+<section id="education" class="section section--alt" data-section>
+    <p class="section__label reveal">Eğitim &amp; Deneyim</p>
+    <h2 class="section__title reveal" data-delay="1">Yolculuğun <span class="accent">özeti</span></h2>
+
+    {% if educations or experiences or courses %}
+        <ul class="timeline">
+            {% for experience in experiences %}
+                <li class="timeline__item reveal">
+                    <p class="timeline__date">
+                        {% if experience.start_date %}{{ experience.start_date|date:"Y" }}{% endif %}
+                        {% if experience.end_date %} — {{ experience.end_date|date:"Y" }}{% elif experience.start_date %} — Devam ediyor{% endif %}
+                    </p>
+                    <h3 class="timeline__title">{{ experience.title }}</h3>
+                    {% if experience.company %}<p class="timeline__meta">{{ experience.company }}</p>{% endif %}
+                    <p>{{ experience.description }}</p>
+                </li>
+            {% endfor %}
+
+            {% for education in educations %}
+                <li class="timeline__item reveal">
+                    <p class="timeline__date">
+                        {% if education.start_date %}{{ education.start_date|date:"Y" }}{% endif %}
+                        {% if education.end_date %} — {{ education.end_date|date:"Y" }}{% elif education.start_date %} — Devam ediyor{% endif %}
+                    </p>
+                    <h3 class="timeline__title">{{ education.school }}</h3>
+                    {% if education.department %}<p class="timeline__meta">{{ education.department }}</p>{% endif %}
+                    {% if education.description %}<p>{{ education.description }}</p>{% endif %}
+                </li>
+            {% endfor %}
+
+            {% for course in courses %}
+                <li class="timeline__item reveal">
+                    <p class="timeline__date">Sertifika</p>
+                    <h3 class="timeline__title">{{ course.name }}</h3>
+                    {% if course.institution %}<p class="timeline__meta">{{ course.institution }}</p>{% endif %}
+                    {% if course.description %}<p>{{ course.description }}</p>{% endif %}
+                    {% if course.certificate_url %}
+                        <a class="project-card__link" href="{{ course.certificate_url }}" target="_blank" rel="noopener">Sertifikayı gör</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty-state reveal" data-delay="2">Henüz eğitim veya deneyim bilgisi eklenmemiş.</p>
+    {% endif %}
+</section>

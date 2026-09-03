@@ -1,0 +1,53 @@
+<section id="about" class="section section--alt" data-section>
+    <p class="section__label reveal">Hakkında</p>
+    <h2 class="section__title reveal" data-delay="1">Kısaca <span class="accent">ben</span></h2>
+
+    <div class="about__grid">
+        <div class="reveal" data-delay="2">
+            <p class="about__bio">
+                {% if owner.biography %}
+                    {{ owner.biography|linebreaksbr }}
+                {% else %}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                {% endif %}
+            </p>
+
+            {% if skills %}
+                <ul class="skill-tags">
+                    {% for skill in skills %}
+                        <li>{{ skill.name }}{% if skill.level %} · {{ skill.level }}{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if hobbies %}
+                <ul class="skill-tags">
+                    {% for hobby in hobbies %}
+                        <li>{{ hobby.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="stats reveal" data-delay="3">
+            <div class="stat">
+                <p class="stat__value" data-counter="{{ stats.experience_count }}" data-suffix="+">0</p>
+                <p class="stat__label">Deneyim</p>
+            </div>
+            <div class="stat">
+                <p class="stat__value" data-counter="{{ stats.project_count }}" data-suffix="+">0</p>
+                <p class="stat__label">Proje</p>
+            </div>
+            <div class="stat">
+                <p class="stat__value" data-counter="{{ stats.course_count }}" data-suffix="+">0</p>
+                <p class="stat__label">Kurs</p>
+            </div>
+            <div class="stat">
+                <p class="stat__value" data-counter="{{ stats.skill_count }}" data-suffix="+">0</p>
+                <p class="stat__label">Yetenek</p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,39 +1,26 @@
-{% load static %}
-<!DOCTYPE HTML>
-<html>
+{% load static %}<!DOCTYPE html>
+<html lang="tr">
 <head>
-    <title>{% block title %}Demo{% endblock %}</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="{% static 'main/css/main.css' %}" />
-    <noscript><link rel="stylesheet" href="{% static 'main/css/noscript.css' %}" /></noscript>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% if owner %}{{ owner.user.first_name }} {{ owner.user.last_name }}{% else %}Portfolyo{% endif %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}Kişisel portfolyo ve tanıtım sitesi.{% endblock %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/portfolio.css' %}">
 </head>
-<body class="is-preload">
-<div id="wrapper" class="{% block wrapper_class %}{% endblock %}">
-
-    {% block intro %}{% endblock %}
-
-    {% include "partials/header.html" %}
+<body>
     {% include "partials/nav.html" %}
 
-    <div id="main">
+    {% block rails %}{% endblock %}
+
+    <main id="main">
         {% block content %}{% endblock %}
-    </div>
+    </main>
 
-    {% include "partials/footer.html" %}
-
-    <div id="copyright">
-        <ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-    </div>
-</div>
-
-<script src="{% static 'main/js/jquery.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.scrollex.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.scrolly.min.js' %}"></script>
-<script src="{% static 'main/js/browser.min.js' %}"></script>
-<script src="{% static 'main/js/breakpoints.min.js' %}"></script>
-<script src="{% static 'main/js/util.js' %}"></script>
-<script src="{% static 'main/js/main.js' %}"></script>
-{% block extra_js %}{% endblock %}
+    <script src="{% static 'main/js/portfolio.js' %}" defer></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

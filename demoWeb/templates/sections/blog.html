@@ -1,0 +1,19 @@
+<section id="blog" class="section" data-section>
+    <p class="section__label reveal">Blog</p>
+    <h2 class="section__title reveal" data-delay="1">Son <span class="accent">yazılar</span></h2>
+
+    <div class="blog-grid">
+        {% for post in posts %}
+            <article class="blog-card reveal" data-delay="{{ forloop.counter }}">
+                <div class="blog-card__thumb">
+                    <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                </div>
+                <div class="blog-card__body">
+                    <p class="blog-card__date">{{ post.date }}</p>
+                    <h3 class="blog-card__title">{{ post.title }}</h3>
+                    <p>{{ post.excerpt }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>

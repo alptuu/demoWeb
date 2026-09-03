@@ -1,18 +1,26 @@
 {% extends "base.html" %}
 
+{% block title %}Kayıt Ol{% endblock %}
+
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
+<section class="auth">
+    <div class="auth__card">
+        <h1>Sahip <span class="accent">Kaydı</span></h1>
 
-    {% for field in form %}
-        <div>
-            {{ field.label_tag }}
-            {{ field }}
-            {{ field.errors }}
-        </div>
-    {% endfor %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-    <button type="submit">Kayıt Ol</button>
-</form>
+            {% for field in form %}
+                <div class="form-field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn">Kayıt Ol</button>
+        </form>
+    </div>
+</section>
 {% endblock %}

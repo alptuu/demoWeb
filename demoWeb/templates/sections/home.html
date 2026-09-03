@@ -1,0 +1,30 @@
+<section id="home" class="hero" data-section>
+    <div class="hero__content">
+        <button type="button" class="hero__play reveal" aria-label="Tanıtım videosunu oynat">
+            <svg viewBox="0 0 16 20" aria-hidden="true"><path d="M0 0l16 10L0 20z"/></svg>
+        </button>
+
+        <p class="hero__role reveal" data-delay="1">
+            {% if owner %}{{ owner.user.get_full_name|default:owner.user.username }}{% else %}Product Designer{% endif %}
+        </p>
+
+        <h1 class="hero__title reveal" data-delay="2">
+            {% if owner %}{{ owner.user.first_name|default:"Portfolyo" }}{% else %}Portfolyo{% endif %}<span class="accent">.</span>
+        </h1>
+
+        <p class="hero__text reveal" data-delay="3">
+            {% if owner.biography %}
+                {{ owner.biography|truncatewords:28 }}
+            {% else %}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Projeler, deneyimler ve
+                fikirlerin bir araya geldiği kişisel alanım.
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="hero__media">
+        <img src="https://picsum.photos/id/1005/1200/1600" alt="Portre görseli">
+    </div>
+
+    <p class="hero__copyright">&copy; {% now "Y" %} {% if owner %}{{ owner.user.first_name }}{% else %}Portfolyo{% endif %}.</p>
+</section>

@@ -1,16 +1,25 @@
-<nav id="nav">
-    <ul class="links">
-        <li class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-            <a href="{% url 'home' %}">This is Massively</a></li>
-        <li class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
-            <a href="{% url 'about' %}">Generic Page</a></li>
-        <li class="{% if request.resolver_match.url_name == 'elements' %}active{% endif %}">
-            <a href="{% url 'elements' %}">Elements Reference</a></li>
+<nav class="site-nav" data-nav>
+    <a href="{% url 'home' %}#home" class="site-nav__logo">
+        {% if owner %}{{ owner.user.first_name }}{% else %}Portfolyo{% endif %}<span class="accent">.</span>
+    </a>
+
+    <ul class="site-nav__links">
+        <li><a href="{% url 'home' %}#home" data-nav-link>Ana Sayfa</a></li>
+        <li><a href="{% url 'home' %}#about" data-nav-link>Hakkında</a></li>
+        <li><a href="{% url 'home' %}#projects" data-nav-link>Projeler</a></li>
+        <li><a href="{% url 'home' %}#education" data-nav-link>Eğitim</a></li>
+        <li><a href="{% url 'home' %}#testimonials" data-nav-link>Referanslar</a></li>
+        <li><a href="{% url 'home' %}#partners" data-nav-link>Partnerler</a></li>
+        <li><a href="{% url 'home' %}#blog" data-nav-link>Blog</a></li>
+        <li><a href="{% url 'home' %}#contact" data-nav-link>İletişim</a></li>
     </ul>
-    <ul class="icons">
-        <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-        <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-        <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-        <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-    </ul>
+
+    <div class="site-nav__meta">
+        {% if owner.phone_number %}<a href="tel:{{ owner.phone_number }}">{{ owner.phone_number }}</a>{% endif %}
+        {% if user.is_authenticated %}<a href="{% url 'owner_edit' %}">Panel</a>{% endif %}
+    </div>
+
+    <button type="button" class="nav-toggle" data-nav-toggle aria-label="Menü" aria-expanded="false">
+        <span></span>
+    </button>
 </nav>
