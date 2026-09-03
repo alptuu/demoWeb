@@ -105,13 +105,24 @@ class Course(models.Model):
 
 
 class Skill(models.Model):
+    LEVEL_BEGINNER = "beginner"
+    LEVEL_INTERMEDIATE = "intermediate"
+    LEVEL_ADVANCED = "advanced"
+    LEVEL_EXPERT = "expert"
+
+    SKILL_CHOICES = [
+        (LEVEL_BEGINNER, "Başlangıç"),
+        (LEVEL_INTERMEDIATE, "Orta"),
+        (LEVEL_ADVANCED, "İleri"),
+        (LEVEL_EXPERT, "Uzman"),
+    ]
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="skills",
     )
     name = models.CharField(max_length=100)
-    level = models.CharField(max_length=50, blank=True)
+    level = models.CharField(max_length=50, choices=SKILL_CHOICES, blank=True)
 
     def __str__(self):
         return self.name
@@ -127,4 +138,16 @@ class Hobby(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Blog(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="blogs",
+    )
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    date = models.DateField(null=True,blank=True)
+
 

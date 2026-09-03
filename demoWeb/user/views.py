@@ -7,6 +7,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import (
+    BlogForm,
     CourseForm,
     EducationForm,
     ExperienceForm,
@@ -16,7 +17,7 @@ from .forms import (
     ProjectForm,
     SkillForm,
 )
-from .models import Course, Education, Experience, Profile, Project, Skill
+from .models import Blog, Course, Education, Experience, Profile, Project, Skill
 
 
 def owner_login(request):
@@ -108,6 +109,7 @@ ITEM_MODELS = {
     'education': (Education, EducationForm, 'Eğitim'),
     'course': (Course, CourseForm, 'Kurs'),
     'skill': (Skill, SkillForm, 'Yetenek'),
+    'blog': (Blog, BlogForm, 'Blog Yazısı'),
 }
 
 
@@ -175,6 +177,9 @@ def item_delete(request, model_name, pk):
         return redirect('item_list', model_name=model_name)
 
     return render(request, 'owner/item_confirm_delete.html', {'item': item, 'title': title})
+
+
+
 
 
 

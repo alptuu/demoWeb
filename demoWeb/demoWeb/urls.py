@@ -54,6 +54,7 @@ def main_page(request):
         projects = list(owner.user.projects.all())
         courses = list(owner.user.courses.all())
         skills = list(owner.user.skills.all())
+        blogs = list(owner.user.blogs.order_by('-date'))
 
         context.update({
             'experiences': experiences,
@@ -62,6 +63,7 @@ def main_page(request):
             'courses': courses,
             'skills': skills,
             'hobbies': owner.user.hobbies.all(),
+            'blogs': blogs,
             'stats': {
                 'experience_count': len(experiences),
                 'project_count': len(projects),

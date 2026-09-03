@@ -17,7 +17,7 @@
             {% if skills %}
                 <ul class="skill-tags">
                     {% for skill in skills %}
-                        <li>{{ skill.name }}{% if skill.level %} · {{ skill.level }}{% endif %}</li>
+                        <li>{{ skill.name }}{% if skill.level %} · {{ skill.get_level_display }}{% endif %}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
