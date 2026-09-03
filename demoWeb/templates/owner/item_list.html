@@ -11,8 +11,8 @@
             {% for item in items %}
                 <li class="item-list__row">
                     <span>{{ item }}</span>
-                    <a href="{% url 'item_update' model_name pk=item.pk %}">Düzenle</a>
-                    <a href="{% url 'item_delete' model_name pk=item.pk %}">Sil</a>
+                    <a href="{% url 'item_update' model_name item.pk %}">Düzenle</a>
+                    <a href="{% url 'item_delete' model_name item.pk %}">Sil</a>
                 </li>
             {% empty %}
                 <li>Henüz kayıt eklenmemiş.</li>

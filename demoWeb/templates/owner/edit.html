@@ -22,6 +22,17 @@
             <button type="submit" class="btn">Kaydet</button>
         </form>
 
+        <div class="auth__items">
+            <h2>İçerik <span class="accent">Yönetimi</span></h2>
+            <ul class="item-list">
+                <li><a href="{% url 'item_list' 'experience' %}">Deneyimler</a></li>
+                <li><a href="{% url 'item_list' 'project' %}">Projeler</a></li>
+                <li><a href="{% url 'item_list' 'education' %}">Eğitimler</a></li>
+                <li><a href="{% url 'item_list' 'course' %}">Kurslar</a></li>
+                <li><a href="{% url 'item_list' 'skill' %}">Yetenekler</a></li>
+            </ul>
+        </div>
+
         <p class="auth__footer"><a href="{% url 'owner_logout' %}">Çıkış Yap</a></p>
     </div>
 </section>
