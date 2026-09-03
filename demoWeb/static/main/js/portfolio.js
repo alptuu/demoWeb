@@ -29,6 +29,7 @@
     /* Scroll progress rail ---------------------------------------------- */
 
     var progressBar = document.querySelector('[data-scroll-progress]');
+    var scrollTopBtn = document.querySelector('[data-scroll-top]');
 
     function onScroll() {
         var scrolled = window.scrollY;
@@ -37,11 +38,24 @@
             siteNav.classList.toggle('is-scrolled', scrolled > 40);
         }
 
+        if (scrollTopBtn) {
+            scrollTopBtn.classList.toggle('is-visible', scrolled > 400);
+        }
+
         if (progressBar) {
             var max = document.documentElement.scrollHeight - window.innerHeight;
             var ratio = max > 0 ? Math.min(scrolled / max, 1) : 0;
             progressBar.style.height = (ratio * 100) + '%';
         }
+    }
+
+    if (scrollTopBtn) {
+        scrollTopBtn.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: prefersReducedMotion ? 'auto' : 'smooth'
+            });
+        });
     }
 
     var ticking = false;
@@ -207,5 +221,40 @@
 
         show(0);
         play();
+    }
+
+    /* Custom cursor ------------------------------------------------------- */
+
+    var cursor = document.querySelector('[data-cursor]');
+    var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (cursor && finePointer && !prefersReducedMotion) {
+        var cursorX = 0;
+        var cursorY = 0;
+        var cursorTicking = false;
+
+        document.addEventListener('mousemove', function (event) {
+            cursorX = event.clientX;
+            cursorY = event.clientY;
+            document.body.classList.add('has-cursor');
+
+            if (!cursorTicking) {
+                window.requestAnimationFrame(function () {
+                    cursor.style.setProperty('--cursor-x', cursorX + 'px');
+                    cursor.style.setProperty('--cursor-y', cursorY + 'px');
+                    cursorTicking = false;
+                });
+                cursorTicking = true;
+            }
+        });
+
+        document.addEventListener('mouseover', function (event) {
+            var interactive = event.target.closest('a, button, [role="tab"], input, textarea');
+            cursor.classList.toggle('is-active', Boolean(interactive));
+        });
+
+        document.addEventListener('mouseleave', function () {
+            document.body.classList.remove('has-cursor');
+        });
     }
 })();

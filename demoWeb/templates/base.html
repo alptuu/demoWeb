@@ -20,6 +20,12 @@
         {% block content %}{% endblock %}
     </main>
 
+    <button type="button" class="scroll-top" data-scroll-top aria-label="Sayfanın başına dön">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l8 8-1.4 1.4L13 7.8V20h-2V7.8L5.4 13.4 4 12z"/></svg>
+    </button>
+
+    <div class="cursor" data-cursor aria-hidden="true"></div>
+
     <script src="{% static 'main/js/portfolio.js' %}" defer></script>
     {% block extra_js %}{% endblock %}
 </body>
