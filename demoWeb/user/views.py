@@ -161,7 +161,7 @@ def item_create(request, model_name):
     model, form_class, title = _get_item_model(model_name)
 
     if request.method == 'POST':
-        form = form_class(request.POST)
+        form = form_class(request.POST,request.FILES)
 
         if form.is_valid():
             item = form.save(commit=False)
@@ -187,7 +187,7 @@ def item_update(request, model_name, pk):
     item = get_object_or_404(model, pk=pk, user=request.user)
 
     if request.method == 'POST':
-        form = form_class(request.POST, instance=item)
+        form = form_class(request.POST,request.FILES, instance=item)
 
         if form.is_valid():
             form.save()

@@ -3,18 +3,40 @@
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block content %}
-<section class="section">
-    <p class="section__label reveal">Proje</p>
-    <h1 class="section__title reveal" data-delay="1">{{ project.title }}</h1>
+<article class="detail">
+    <div class="detail__progress"><span data-read-progress></span></div>
 
-    <p class="about__bio reveal" data-delay="2">{{ project.description|linebreaksbr }}</p>
+    <header class="detail__hero{% if not project.image %} detail__hero--plain{% endif %}" data-detail-hero>
+        {% if project.image %}
+            <div class="detail__hero-media" data-detail-parallax>
+                <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            </div>
+        {% endif %}
 
-    {% if project.url %}
-        <p class="reveal" data-delay="3">
-            <a class="project-card__link" href="{{ project.url }}" target="_blank" rel="noopener">Projeyi gör</a>
+        <div class="detail__hero-inner" data-detail-fade>
+            <p class="detail__eyebrow">Proje</p>
+            <h1 class="detail__title">{{ project.title }}</h1>
+        </div>
+
+        <span class="detail__scroll-hint" data-detail-fade aria-hidden="true">
+            <span class="detail__scroll-line"></span>
+        </span>
+    </header>
+
+    <div class="detail__body">
+        <div class="detail__content" data-stagger>
+            {{ project.description|linebreaks }}
+        </div>
+
+        {% if project.url %}
+            <p class="detail__cta reveal">
+                <a class="btn" href="{{ project.url }}" target="_blank" rel="noopener">Projeyi gör</a>
+            </p>
+        {% endif %}
+
+        <p class="detail__back reveal">
+            <a href="{% url 'home' %}#projects">&larr; Projelere Dön</a>
         </p>
-    {% endif %}
-
-    <p class="auth__footer"><a href="{% url 'home' %}#projects">Projelere Dön</a></p>
-</section>
+    </div>
+</article>
 {% endblock %}

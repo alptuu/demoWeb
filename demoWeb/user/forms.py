@@ -125,11 +125,12 @@ class ExperienceForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["title", "description", "url"]
+        fields = ["title", "description", "url", "image"]
         labels = {
             "title": "Başlık",
             "description": "Açıklama",
             "url": "Bağlantı",
+            "image": "Proje Görseli",
         }
 
 
@@ -174,11 +175,12 @@ class SkillForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ["title","description","date"]
+        fields = ["title","description","date","image"]
         labels = {
             "title":"Başlık",
             "description":"Açıklama",
             "date":"Tarih",
+            "image":"Blog Görseli",
         }
 
 

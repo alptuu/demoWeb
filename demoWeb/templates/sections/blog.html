@@ -11,6 +11,13 @@
                     <h3 class="blog-card__title">{{ blog.title }}</h3>
                     <p>{{ blog.description|truncatewords:30 }}</p>
                 </div>
+                {% if blog.image %}
+                    <img
+                        src="{{ blog.image.url }}"
+                        alt="{{ blog.title }}"
+                        class="blog-card__image"
+                    >
+                {% endif %}
             </article>
         {% endfor %}
 
