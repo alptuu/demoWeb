@@ -14,4 +14,5 @@ urlpatterns = [
     path('owner/items/<str:model_name>/<int:pk>/delete/', views.item_delete, name='item_delete'),
     path('projects/<int:pk>/', views.project_detail, name='project_detail'),
     path('blog/<int:pk>/', views.blog_detail, name='blog_detail'),
+    path('contact/send/', views.contact_message, name='contact_message'),
 ]

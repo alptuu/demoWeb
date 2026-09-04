@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -126,16 +127,22 @@ MEDIA_ROOT = BASE_DIR / 'media' # staticfiles_dirs gibi liste şeklinde beklemez
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
+_smtp_user = os.environ.get("EMAIL_HOST_USER", "")
+_smtp_password = os.environ.get("EMAIL_HOST_PASSWORD", "")
+
 MAILERS = {
     "default": {
         "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
-        "HOST": "smtp.gmail.com",
-        "PORT": 587,
-        "USE_TLS": True,
-        "USERNAME": "seningmailadresin@gmail.com",
-        "PASSWORD": "google-uygulama-sifren",
+        "OPTIONS": {  # Django 6.1: backend ayarları OPTIONS altında ve küçük harfli olmalı
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "use_tls": True,
+            "username": _smtp_user,
+            "password": _smtp_password,
+            "timeout": 10,
+        },
     },
 }
 
-DEFAULT_FROM_EMAIL = "noreply@localhost"
-CONTACT_RECIPIENT_EMAIL = "alptugbozkurt2004@gmail.com"
+DEFAULT_FROM_EMAIL = _smtp_user  # Gmail, kimlik doğrulanan hesaptan farklı From adresini kabul etmez
+CONTACT_RECIPIENT_EMAIL = os.environ.get("CONTACT_RECIPIENT_EMAIL", _smtp_user)

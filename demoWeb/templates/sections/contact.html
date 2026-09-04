@@ -24,7 +24,7 @@
             {% endif %}
         </div>
 
-        <form class="reveal" data-delay="3" method="post" action="#contact">
+        <form class="reveal" data-delay="3" method="post" action="{% url 'contact_message' %}">
             {% csrf_token %}
             <div class="form-field">
                 <label for="contact-name">Ad Soyad</label>

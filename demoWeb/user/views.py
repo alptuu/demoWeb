@@ -1,3 +1,6 @@
+import logging
+from smtplib import SMTPException
+
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -7,7 +10,7 @@ from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
-from django.core.mail import EmailMessage
+from django.core.mail import BadHeaderError, EmailMessage
 from django.conf import settings
 
 from .forms import (
@@ -24,6 +27,8 @@ from .forms import (
     ContactMessageForm,
 )
 from .models import Blog, Contact, Course, Education, Experience, Profile, Project, Skill
+
+logger = logging.getLogger(__name__)
 
 
 def owner_login(request):
@@ -254,15 +259,20 @@ def contact_message(request):
             to=[settings.CONTACT_RECIPIENT_EMAIL],  # e-postayı alacak kişilerin adres listesi (tek kişi olsa bile liste olmak zorunda)
             reply_to=[form.cleaned_data["email"]], # formu dolduran ziyaretçinin e-posta adresi 
         )
-        email_message.send()
-        messages.success(request, 'Mesajınız gönderildi, en kısa sürede dönüş yapılacaktır.')
+
+        try:
+            email_message.send(fail_silently=False)
+        except (BadHeaderError, SMTPException, OSError):
+            logger.exception('İletişim formu e-postası gönderilemedi.')
+            messages.error(request, 'Mesajınız gönderilemedi, lütfen daha sonra tekrar deneyin.')
+        else:
+            messages.success(request, 'Mesajınız gönderildi, en kısa sürede dönüş yapılacaktır.')
     else:
         messages.error(request, 'Mesajınız gönderilemedi, lütfen bilgileri kontrol edin.')
 
     return redirect("/#contact")
 
-def download_cv(request):
-    return 
+
 
 
 
