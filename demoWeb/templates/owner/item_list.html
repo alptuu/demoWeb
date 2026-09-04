@@ -4,23 +4,52 @@
 
 {% block content %}
 <section class="auth">
-    <div class="auth__card">
-        <h1>{{ title }} <span class="accent">Listesi</span></h1>
+    <div class="auth__card auth__card--wide">
+        <div class="panel__head">
+            <div>
+                <h1>{{ title }} <span class="accent">Listesi</span></h1>
+                <p class="panel__subtitle">{{ items|length }} kayıt</p>
+            </div>
+            <a class="btn btn--sm" href="{% url 'item_create' model_name %}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                Yeni Ekle
+            </a>
+        </div>
 
-        <ul class="item-list">
-            {% for item in items %}
-                <li class="item-list__row">
-                    <span>{{ item }}</span>
-                    <a href="{% url 'item_update' model_name item.pk %}">Düzenle</a>
-                    <a href="{% url 'item_delete' model_name item.pk %}">Sil</a>
-                </li>
-            {% empty %}
-                <li>Henüz kayıt eklenmemiş.</li>
-            {% endfor %}
-        </ul>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Kayıt</th>
+                    <th class="data-table__actions">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td class="data-table__actions">
+                            <a class="icon-btn" href="{% url 'item_update' model_name item.pk %}" title="Düzenle" aria-label="Düzenle">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                            </a>
+                            <a class="icon-btn icon-btn--danger" href="{% url 'item_delete' model_name item.pk %}" title="Sil" aria-label="Sil">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td class="data-table__empty" colspan="2">Henüz kayıt eklenmemiş.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-        <a class="btn" href="{% url 'item_create' model_name %}">Yeni {{ title }} Ekle</a>
-        <p class="auth__footer"><a href="{% url 'owner_edit' %}">Profile Dön</a></p>
+        <p class="auth__footer">
+            <a class="link-muted" href="{% url 'owner_dashboard' %}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                İçerik Yönetimine Dön
+            </a>
+        </p>
     </div>
 </section>
 {% endblock %}

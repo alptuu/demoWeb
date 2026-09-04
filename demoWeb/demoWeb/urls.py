@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.shortcuts import render, redirect, get_object_or_404
+from django.conf import settings
+from django.conf.urls.static import static
 
 from user.models import Profile
 
@@ -95,4 +97,8 @@ urlpatterns = [
     path('contact/', section_redirect('contact'), name='contact'),
     path('', include('user.urls')),
 ]
+
+if settings.DEBUG:
+    # Yüklenen dosyaları sadece geliştirmede Django sunar; canlıda web sunucusu/CDN sunmalı.
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

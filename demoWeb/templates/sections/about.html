@@ -29,6 +29,10 @@
                     {% endfor %}
                 </ul>
             {% endif %}
+
+            {% if owner.cv %}
+                <a class="btn about__cv" href="{{ owner.cv.url }}" download>CV’mi İndir</a>
+            {% endif %}
         </div>
 
         <div class="stats reveal" data-delay="3">
@@ -50,4 +54,6 @@
             </div>
         </div>
     </div>
+
+
 </section>

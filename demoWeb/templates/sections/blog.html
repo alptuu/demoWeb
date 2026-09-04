@@ -7,7 +7,7 @@
             <article class="blog-card reveal" data-delay="{{ forloop.counter }}">
                 <a class="stretched-link" href="{% url 'blog_detail' blog.pk %}" aria-label="{{ blog.title }}"></a>
                 <div class="blog-card__body">
-                    {% if blog.date %}<p class="blog-card__date">{{ blog.date }}</p>{% endif %}
+                    {% if blog.date %}<p class="blog-card__date">{{ blog.date|date:"d-m-Y" }}</p>{% endif %}
                     <h3 class="blog-card__title">{{ blog.title }}</h3>
                     <p>{{ blog.description|truncatewords:30 }}</p>
                 </div>

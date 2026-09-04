@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, FileExtensionValidator
 
 class Profile(models.Model):
     ROLE_OWNER = "owner"
@@ -33,6 +33,8 @@ class Profile(models.Model):
         ),
     ],
     )
+    cv = models.FileField(upload_to="cvs/",blank=True,validators=[FileExtensionValidator(allowed_extensions=["pdf"])]) 
+    #upload_to="cvs/": yüklenen klasörün medya klasörü altına kaydedileceğini söyler 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -150,6 +152,9 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     date = models.DateField(null=True,blank=True)
+
+    def __str__(self):
+        return self.title
 
 class Contact(models.Model):
     user = models.ForeignKey(

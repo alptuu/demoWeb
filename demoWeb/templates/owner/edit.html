@@ -4,10 +4,19 @@
 
 {% block content %}
 <section class="auth">
-    <div class="auth__card">
-        <h1>Profili <span class="accent">Düzenle</span></h1>
+    <div class="auth__card auth__card--wide">
+        <div class="panel__head">
+            <div>
+                <h1>Profili <span class="accent">Düzenle</span></h1>
+                <p class="panel__subtitle">Ad, iletişim bilgileri ve CV'nizi buradan güncelleyin.</p>
+            </div>
+            <a class="link-muted" href="{% url 'owner_dashboard' %}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+                İçerik Yönetimi
+            </a>
+        </div>
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.non_field_errors }}
 
@@ -19,23 +28,25 @@
                 </div>
             {% endfor %}
 
-            <button type="submit" class="btn">Kaydet</button>
+            {% if profile.cv %}
+                <p class="auth__hint">Mevcut CV: <a href="{{ profile.cv.url }}" target="_blank" rel="noopener">{{ profile.cv.name }}</a></p>
+            {% endif %}
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn--sm">Kaydet</button>
+                <a class="link-muted" href="{% url 'owner_logout' %}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 13v-2H7V8l-5 4 5 4v-3h9zm3-10H11a2 2 0 0 0-2 2v3h2V5h8v14h-8v-3H9v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/></svg>
+                    Çıkış Yap
+                </a>
+            </div>
         </form>
 
-        <div class="auth__items">
-            <h2>İçerik <span class="accent">Yönetimi</span></h2>
-            <ul class="item-list">
-                <li><a href="{% url 'item_list' 'experience' %}">Deneyimler</a></li>
-                <li><a href="{% url 'item_list' 'project' %}">Projeler</a></li>
-                <li><a href="{% url 'item_list' 'education' %}">Eğitimler</a></li>
-                <li><a href="{% url 'item_list' 'course' %}">Kurslar</a></li>
-                <li><a href="{% url 'item_list' 'skill' %}">Yetenekler</a></li>
-                <li><a href="{% url 'item_list' 'blog' %}">Blog Yazılarım</a></li>
-                <li><a href="{% url 'item_list' 'contact' %}">İletişim Bağlantıları</a></li>
-            </ul>
-        </div>
-
-        <p class="auth__footer"><a href="{% url 'owner_logout' %}">Çıkış Yap</a></p>
+        <p class="auth__footer">
+            <a class="link-muted" href="{% url 'home' %}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-5h2v5h6v-8h3L12 3z"/></svg>
+                Siteye Dön
+            </a>
+        </p>
     </div>
 </section>
 {% endblock %}

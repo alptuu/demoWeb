@@ -19,7 +19,10 @@
                 </div>
             {% endfor %}
 
-            <button type="submit" class="btn">Kaydet</button>
+            <div class="form-actions">
+                <button type="submit" class="btn btn--sm">Kaydet</button>
+                <a class="link-muted" href="{% url 'item_list' model_name %}">Vazgeç</a>
+            </div>
         </form>
     </div>
 </section>

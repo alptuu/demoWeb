@@ -3,6 +3,24 @@
 
     var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /* Flash messages ------------------------------------------------------ */
+
+    document.querySelectorAll('[data-message-close]').forEach(function (btn) {
+        var item = btn.closest('.messages__item');
+
+        function dismiss() {
+            if (item) {
+                item.classList.add('is-hidden');
+                setTimeout(function () {
+                    item.remove();
+                }, 300);
+            }
+        }
+
+        btn.addEventListener('click', dismiss);
+        setTimeout(dismiss, 5000);
+    });
+
     /* Mobile navigation ------------------------------------------------- */
 
     var toggle = document.querySelector('[data-nav-toggle]');

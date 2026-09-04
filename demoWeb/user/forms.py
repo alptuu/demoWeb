@@ -9,8 +9,8 @@ class OwnerLoginForm(AuthenticationForm):
     password = forms.CharField(label="Şifre", widget=forms.PasswordInput)
 
 
-class OwnerSignUpForm(forms.Form):
-    username = forms.CharField(
+class OwnerSignUpForm(forms.Form): # forms.Form: veritabanına bağlı olmayan genel amaçlı form üretimi içindir 
+    username = forms.CharField(    # forms.ModelForm: django modeline bağlı olan formdur / modeldeki alanlardan form alanlarını  otomatik üretir ve form.save() ile ilgili tabloya kayıt yapabilir
         label="Kullanıcı Adı",
         max_length=150,
     )
@@ -74,6 +74,7 @@ class OwnerProfileForm(forms.Form):
         max_length=20,
         required=False,
     )
+    cv = forms.FileField(label="CV",required=False)
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user #email benzersizlik kontrolünde kullanıcının kendi kaydını hariç tutmak için
@@ -92,6 +93,16 @@ class OwnerProfileForm(forms.Form):
             )
 
         return email
+
+    def clean_cv(self): # django clean_<alan_adı> deseniyle olan metodları "form.is_valid()" sırasında otomatik çağırır
+        cv = self.cleaned_data["cv"]
+
+        if cv and cv.size > 5 * 1024 * 1024:
+            raise forms.ValidationError(
+                "CV dosyası en fazla 5 MB olabilir."
+            )
+
+        return cv
 
 
 class ExperienceForm(forms.ModelForm):
@@ -180,6 +191,22 @@ class ContactForm(forms.ModelForm):
             "url": "Bağlantı",
         }
 
+class ContactMessageForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    email = forms.EmailField()
+    message = forms.CharField(widget=forms.Textarea(attrs={"placeholder":"Mesajınızı yazın"}), max_length=5000) #widget parametresi: form alanının tarayıcıda hangi HTML ögesiyle gösterileceğini belirler
+
+    # widget belirtilmezse Charfield varsayılan olarak şöyle render edilir: <input type="text" name="message">
+    # Textarea kullanılınca şöyle olur: <textarea name="message"></textarea>
+
+    # sık kullanılan widget örnekleri
+    # password = forms.CharField(widget=forms.PasswordInput)
+    # birth_date = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}))
+    # email = forms.EmailField(widget=forms.EmailInput)
+
+    # Ancak senin mevcut contact.html şablonun alanları elle yazıyor (<input ...> ve <textarea ...>). 
+    # Bu durumda widget ekranda etkili olmaz; yine de form doğrulaması çalışır. 
+    # Widget’ın etkisini görmek için şablonda örneğin {{ form.message }} kullanarak Django’nun alanı üretmesini sağlamalısın.
 
 
 
