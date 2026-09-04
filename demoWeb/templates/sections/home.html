@@ -23,7 +23,11 @@
     </div>
 
     <div class="hero__media">
-        <img src="https://picsum.photos/id/1005/1200/1600" alt="Portre görseli">
+        {% if owner.image %}
+            <img src="{{ owner.image.url }}" alt="{{ owner.user.get_full_name|default:owner.user.username }}">
+        {% else %}
+            <img src="https://picsum.photos/id/1005/1200/1600" alt="Portre görseli">
+        {% endif %}
     </div>
 
     <p class="hero__copyright">&copy; {% now "Y" %} {% if owner %}{{ owner.user.first_name }}{% else %}Portfolyo{% endif %}.</p>

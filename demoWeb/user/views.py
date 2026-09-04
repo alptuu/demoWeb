@@ -94,7 +94,10 @@ def owner_edit(request):
             if form.cleaned_data['cv']:  # dosya seçilmediyse mevcut CV korunur
                 profile.cv = form.cleaned_data['cv']
 
-            profile.save(update_fields=['biography', 'phone_number', 'cv'])
+            if form.cleaned_data['image']:  # dosya seçilmediyse mevcut resim korunur
+                profile.image = form.cleaned_data['image']
+
+            profile.save(update_fields=['biography', 'phone_number', 'cv', 'image'])
 
             messages.success(request, 'Profil bilgileriniz güncellendi.')
             return redirect('owner_edit')

@@ -7,19 +7,23 @@
             {% for project in projects %}
                 <article class="project-card reveal" data-delay="{{ forloop.counter0|add:1 }}">
                     <a class="stretched-link" href="{% url 'project_detail' project.pk %}" aria-label="{{ project.title }}"></a>
-                    <span class="project-card__index">{{ forloop.counter|stringformat:"02d" }}</span>
-                    <h3 class="project-card__title">{{ project.title }}</h3>
-                    <p class="project-card__desc">{{ project.description|truncatewords:30 }}</p>
-                    {% if project.image %}
-                        <img
-                            src="{{ project.image.url }}"
-                            alt="{{ project.title }}"
-                            class="project-card__image"
-                        >
-                    {% endif %}
-                    {% if project.url %}
-                        <a class="project-card__link" href="{{ project.url }}" target="_blank" rel="noopener">Projeyi gör</a>
-                    {% endif %}
+
+                    <div class="project-card__media">
+                        {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-card__image">
+                        {% else %}
+                            <span class="project-card__placeholder" aria-hidden="true">{{ project.title|slice:":1"|upper }}</span>
+                        {% endif %}
+                        <span class="project-card__index">{{ forloop.counter|stringformat:"02d" }}</span>
+                    </div>
+
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">{{ project.title }}</h3>
+                        <p class="project-card__desc">{{ project.description|truncatewords:24 }}</p>
+                        {% if project.url %}
+                            <a class="project-card__link" href="{{ project.url }}" target="_blank" rel="noopener">Projeyi gör</a>
+                        {% endif %}
+                    </div>
                 </article>
             {% endfor %}
         </div>

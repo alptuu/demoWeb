@@ -32,6 +32,14 @@
                 <p class="auth__hint">Mevcut CV: <a href="{{ profile.cv.url }}" target="_blank" rel="noopener">{{ profile.cv.name }}</a></p>
             {% endif %}
 
+            {% if profile.image %}
+                <p class="auth__hint">
+                    Mevcut resim:
+                    <a href="{{ profile.image.url }}" target="_blank" rel="noopener">{{ profile.image.name }}</a>
+                </p>
+                <img class="auth__preview" src="{{ profile.image.url }}" alt="Profil resmi">
+            {% endif %}
+
             <div class="form-actions">
                 <button type="submit" class="btn btn--sm">Kaydet</button>
                 <a class="link-muted" href="{% url 'owner_logout' %}">

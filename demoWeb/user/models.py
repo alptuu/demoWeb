@@ -35,6 +35,7 @@ class Profile(models.Model):
     )
     cv = models.FileField(upload_to="cvs/",blank=True,validators=[FileExtensionValidator(allowed_extensions=["pdf"])]) 
     #upload_to="cvs/": yüklenen klasörün medya klasörü altına kaydedileceğini söyler 
+    image = models.ImageField(upload_to="pp/",blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

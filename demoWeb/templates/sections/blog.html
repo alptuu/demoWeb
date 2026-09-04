@@ -6,18 +6,20 @@
         {% for blog in blogs %}
             <article class="blog-card reveal" data-delay="{{ forloop.counter }}">
                 <a class="stretched-link" href="{% url 'blog_detail' blog.pk %}" aria-label="{{ blog.title }}"></a>
+                <div class="blog-card__thumb">
+                    {% if blog.image %}
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-card__image">
+                    {% else %}
+                        <span class="blog-card__placeholder" aria-hidden="true">{{ blog.title|slice:":1"|upper }}</span>
+                    {% endif %}
+                    <span class="blog-card__index">{{ forloop.counter|stringformat:"02d" }}</span>
+                </div>
                 <div class="blog-card__body">
                     {% if blog.date %}<p class="blog-card__date">{{ blog.date|date:"d-m-Y" }}</p>{% endif %}
                     <h3 class="blog-card__title">{{ blog.title }}</h3>
-                    <p>{{ blog.description|truncatewords:30 }}</p>
+                    <p class="blog-card__excerpt">{{ blog.description|truncatewords:24 }}</p>
+                    <span class="blog-card__link">Yazıyı oku</span>
                 </div>
-                {% if blog.image %}
-                    <img
-                        src="{{ blog.image.url }}"
-                        alt="{{ blog.title }}"
-                        class="blog-card__image"
-                    >
-                {% endif %}
             </article>
         {% endfor %}
 

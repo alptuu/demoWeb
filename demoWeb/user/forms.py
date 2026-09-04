@@ -76,6 +76,8 @@ class OwnerProfileForm(forms.Form):
     )
     cv = forms.FileField(label="CV",required=False)
 
+    image = forms.ImageField(label="Profil Resmin",required=False)
+
     def __init__(self, *args, user=None, **kwargs):
         self.user = user #email benzersizlik kontrolünde kullanıcının kendi kaydını hariç tutmak için
         super().__init__(*args, **kwargs)
@@ -103,6 +105,16 @@ class OwnerProfileForm(forms.Form):
             )
 
         return cv
+
+    def clean_image(self):
+        image = self.cleaned_data["image"]
+
+        if image and image.size > 5 * 1024 * 1024:
+            raise forms.ValidationError(
+                "Resim dosyası en fazla 5 MB olabilir."
+            )
+
+        return image
 
 
 class ExperienceForm(forms.ModelForm):
